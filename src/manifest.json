@@ -23,11 +23,9 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*/search*", 
         "https://localhost/*", 
         "http://localhost/*"
       ],
-      "include_globs": ["*.google.*/*"],
       "js": ["content-script/index.js"],
       "css": ["styles.css"]
     }
