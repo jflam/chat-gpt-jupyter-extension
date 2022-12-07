@@ -45,6 +45,8 @@ async function getAnswer(question, callback) {
       parent_message_id: uuidv4(),
     }),
     onMessage(message) {
+      // TODO: inspect this message to figure out how to extract
+      // any code that comes back - it's likely in ``` code ``` block
       console.debug("sse message", message);
       if (message === "[DONE]") {
         return;
