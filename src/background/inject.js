@@ -7,12 +7,17 @@
 	// current cell or pop an alert (simulate send to GPT)
 	var send_to_chatgpt = function () {
 		var cell = Jupyter.notebook.get_selected_cell();
-		if (cell.cell_type == 'code') {
+		if (cell.cell_type == 'markdown') {
 			code = cell.get_text();
-			if (code.startsWith('%chat')) {
+			if (code.startsWith('##### chat')) {
 				// Strip off the %chat prefix
-				code = code.replace(/^\s*%chat\s*/, "");
+				code = code.replace(/^\s*\#\#\#\#\#\s*chat\s*/, "");
 				console.log(`Send to ChatGPT ${code}`);
+
+				// Render the cell as markdown
+				// TODO: something to say that it is working and then remove
+				// the working when it is done?
+				cell.render();
 
 				// Must post a message to the content_script to send to ChatGPT
 				// TODO: what does * mean and implications for the timeout?
@@ -20,7 +25,12 @@
 			} else {
 				cell.execute();
 			}
-		} else {
+		} else if (cell.cell_type == 'code') {
+			// Perform the default SHIFT+ENTER behavior which is execute
+			// current code cell and move to next cell.
+			cell.execute();
+			Jupyter.notebook.select_next();
+	 	} else {
 			console.log("No selected cell");
 		}
 	};
@@ -82,7 +92,10 @@
 	var prefix = 'auto';
 	var action_name = 'send-to-chatgpt';
 	var full_action_name = Jupyter.actions.register(action, action_name, prefix); // returns 'auto:send-to-chatgpt'
-	Jupyter.notebook.keyboard_manager.edit_shortcuts.add_shortcut('ctrl-enter', full_action_name);
+
+	// TODO: I don't really care about whether someone has overridden the shortcut
+	// in another extension. Feel free to fix this!
+	Jupyter.notebook.keyboard_manager.edit_shortcuts.add_shortcut('shift-enter', full_action_name);
 
 	console.log('Im in yr page, injecting scripts');
 })();
