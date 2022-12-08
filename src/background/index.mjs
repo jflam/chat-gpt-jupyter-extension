@@ -49,6 +49,7 @@ async function getAnswer(question, callback) {
       // any code that comes back - it's likely in ``` code ``` block
       console.debug("sse message", message);
       if (message === "[DONE]") {
+        console.log("COMPLETED receiving response from ChatGPT");
         return;
       }
       const data = JSON.parse(message);
@@ -62,11 +63,14 @@ async function getAnswer(question, callback) {
 
 Browser.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg) => {
-    console.debug("received msg", msg);
+    console.log("received msg", msg);
     try {
-      await getAnswer(msg.question, (answer) => {
+      const complete_answer = await getAnswer(msg.question, (answer) => {
+        // Send stream message
         port.postMessage({ answer });
       });
+      // Send end message
+      port.postMessage({ end: "END" });
     } catch (err) {
       console.error(err);
       port.postMessage({ error: err.message });
