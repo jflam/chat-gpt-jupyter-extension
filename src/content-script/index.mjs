@@ -5,7 +5,7 @@
 
 // Listen for post messages coming from the injected script
 window.addEventListener("message", function(event) {
-  if (event.data.type && (event.data.type == "FROM_PAGE")) {
+  if (event.data.type && (event.data.type == "QUERY_CHATGPT")) {
     question = event.data.text;
     console.log(`Code received from injected script: ${question}`);
 
