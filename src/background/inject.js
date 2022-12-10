@@ -84,6 +84,9 @@ const CHAR_LIMIT = 6000;
 		return key;
 	}
 
+	// TODO: empircally determine what the current ChatGPT experience
+	// sends as context. I wonder if it sends everything?
+
 	// Function that will search backwards through all cells and return a
 	// string that contains all the previous queries and responses for the
 	// specified thread. It ignores the raw_response cells preferring to 
@@ -103,9 +106,9 @@ const CHAR_LIMIT = 6000;
 
 					// If code cell, add code block markdown
 					if (cell.metadata.chatgpt_cell === "code") {
-						result += "```\n" + text + "\n```\n";
+						result = "```\n" + text + "\n```\n" + result;
 					} else {
-						result += text + "\n"; 
+						result = text + "\n" + result;
 					}
 					
 					if (language === "" && cell.metadata.chatgpt_language !== "") {
@@ -143,7 +146,7 @@ const CHAR_LIMIT = 6000;
 
 				window.postMessage({
 					type: "QUERY_CHATGPT",
-					query: query + "\n" + context,
+					query: context + "\n" + query,
 					language: queryLanguage
 				}, "*");
 			}
@@ -234,9 +237,9 @@ const CHAR_LIMIT = 6000;
 	// we will surround the entire annotatedResponse with a default code block
 	// annotated iwth the language. I have seen ChatGPT return such "naked
 	// code" responses and this is needed to handle this case.
-	var extract_code_blocks = function(language, response) {
+	const extractCodeBlocks = function(language, response) {
 		// Do nothing if language is unknown
-		if (language == "unknown") {
+		if (language === "unknown") {
 			return [response, []];
 		}
 
@@ -410,7 +413,7 @@ const CHAR_LIMIT = 6000;
 			// Use the detected programming language in the query to annotate
 			// the markdown code blocks to ensure we syntax highlight
 			// correctly.
-			const [annotatedResponse, codeBlocks] = extract_code_blocks(language, text);
+			const [annotatedResponse, codeBlocks] = extractCodeBlocks(language, text);
 
 			// Replace the elapsed time message with a timestamp message that
 			// tells the user when the response was generated.
@@ -423,7 +426,11 @@ const CHAR_LIMIT = 6000;
 			for (var i = 0; i < codeBlocks.length; i++) {
 				Jupyter.notebook.insert_cell_below();
 				Jupyter.notebook.select_next();
-				Jupyter.notebook.get_selected_cell().set_text(codeBlocks[i]);
+				let cell = Jupyter.notebook.get_selected_cell();
+				cell.metadata.chatgpt_cell = "code";
+				cell.metadata.chatgpt_language = language;
+				cell.metadata.chatgpt_thread = ""; // TODO
+				cell.set_text(codeBlocks[i]);
 			}
 		}
 	});
