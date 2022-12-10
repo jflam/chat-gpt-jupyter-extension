@@ -65,7 +65,7 @@ Browser.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg) => {
     console.log("received msg", msg);
     try {
-      const complete_answer = await getAnswer(msg.question, (answer) => {
+      const complete_answer = await getAnswer(msg.query, (answer) => {
         // Send stream message
         port.postMessage({ answer });
       });

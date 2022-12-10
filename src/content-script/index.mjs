@@ -6,24 +6,38 @@
 // Listen for post messages coming from the injected script
 window.addEventListener("message", function(event) {
   if (event.data.type && (event.data.type == "QUERY_CHATGPT")) {
-    question = event.data.text;
-    console.log(`Code received from injected script: ${question}`);
+    let query = event.data.query;
+    let language = event.data.language;
 
+    console.log("Sending the following query and context to ChatGPT");
+    console.log("query", query);
+    console.log("language", language);
+
+    // Register a callback for intermediate messages coming from the
+    // background script.
     const port = chrome.runtime.connect();
     port.onMessage.addListener(function (msg) {
       if (msg.answer) {
-        window.postMessage({ type: "STREAM_CONTENT_SCRIPT", text: msg.answer }, "*");
+        window.postMessage({ 
+          type: "STREAM_CONTENT_SCRIPT", 
+          text: msg.answer }, "*");
       } else if (msg.end) {
-        window.postMessage({ type: "END_CONTENT_SCRIPT" }, "*");
+        window.postMessage({ 
+          type: "END_CONTENT_SCRIPT",
+          language: language
+        }, "*");
       } else if (msg.error === "UNAUTHORIZED") {
         console.log("Please login at https://chat.openai.com first");
       } else {
         console.log("Failed to load response from ChatGPT");
       }
     });
-    // Tell begin
+
+    // Tell the injected script that the query has been sent to ChatGPT
     this.window.postMessage({ type: "BEGIN_CONTENT_SCRIPT" }, "*");
-    port.postMessage({ question });
+
+    // Send the query to the background script
+    port.postMessage({ query });
   }
 });
 
