@@ -18,7 +18,7 @@
       "https://localhost/*", 
       "http://localhost/*"
     ],
-    "resources": ["background/inject.js"]
+    "resources": ["content-script/inject.js"]
   }],
   "content_scripts": [
     {
