@@ -8,10 +8,12 @@ window.addEventListener("message", function(event) {
   if (event.data.type && (event.data.type == "QUERY_CHATGPT")) {
     let query = event.data.query;
     let language = event.data.language;
+    let thread = event.data.thread;
 
     console.log("Sending the following query and context to ChatGPT");
     console.log("query", query);
     console.log("language", language);
+    console.log("thread", thread);
 
     // Register a callback for intermediate messages coming from the
     // background script.
@@ -24,7 +26,8 @@ window.addEventListener("message", function(event) {
       } else if (msg.end) {
         window.postMessage({ 
           type: "END_CONTENT_SCRIPT",
-          language: language
+          language: language, 
+          thread: thread
         }, "*");
       } else if (msg.error === "UNAUTHORIZED") {
         console.log("Please login at https://chat.openai.com first");
