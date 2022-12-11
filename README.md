@@ -28,6 +28,33 @@ TODO: add an animated gif to the repo.
 3. Run `./build.sh` for Chrome.
 4. Load the `build` directory to your browser
 
+# Description of Jupyter-ChatGPT written by ... ChatGPT
+
+Welcome to Jupyter-ChatGPT!
+
+Jupyter is a highly productive user interface for ChatGPT, providing a number
+of benefits to users:
+
+- **Simplicity:** Jupyter simplifies the process of working with ChatGPT,
+  allowing you to easily write and execute code without the need for
+  complicated command-line interfaces or other tools.
+
+- **Flexibility:** Jupyter provides a powerful and flexible platform for
+  working with ChatGPT, allowing you to easily mix and match code, text, and
+  other media to create custom chatbots and other interactive applications.
+
+- **Collaboration:** Jupyter makes it easy to collaborate with others on
+  ChatGPT projects, allowing you to share notebooks and work together in real
+  time.
+
+- **Portability:** Jupyter notebooks can be easily shared and run on a variety
+  of platforms, making it easy to access and use ChatGPT from anywhere.
+
+With Jupyter-ChatGPT, you can leverage the power of ChatGPT and Jupyter to
+quickly and easily create custom chatbots and other interactive applications.
+Give it a try and see for yourself how Jupyter can make working with ChatGPT a
+breeze!
+
 # Why a browser extension?
 At the time that I created this project, ChatGPT was released as a technology
 preview. That meant no public API.
