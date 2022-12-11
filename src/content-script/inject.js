@@ -315,6 +315,9 @@
 				cell.metadata.chatgpt_thread = thread;
 				cell.set_text(codeBlocks[i]);
 			}
+		} else if (event.data.type && (event.data.type === "ERROR_LOGIN_CONTENT_SCRIPT")) {
+			currentStreamingCell.set_text("Please login to [ChatGPT first](https://chat.openai.com)")
+			currentStreamingCell.render();
 		}
 	});
 

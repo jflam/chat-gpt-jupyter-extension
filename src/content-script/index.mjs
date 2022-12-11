@@ -22,7 +22,8 @@ window.addEventListener("message", function(event) {
       if (msg.answer) {
         window.postMessage({ 
           type: "STREAM_CONTENT_SCRIPT", 
-          text: msg.answer }, "*");
+          text: msg.answer 
+        }, "*");
       } else if (msg.end) {
         window.postMessage({ 
           type: "END_CONTENT_SCRIPT",
@@ -30,6 +31,9 @@ window.addEventListener("message", function(event) {
           thread: thread
         }, "*");
       } else if (msg.error === "UNAUTHORIZED") {
+        window.postMessage({
+          type: "ERROR_LOGIN_CONTENT_SCRIPT"
+        }, "*");
         console.log("Please login at https://chat.openai.com first");
       } else {
         console.log("Failed to load response from ChatGPT");
