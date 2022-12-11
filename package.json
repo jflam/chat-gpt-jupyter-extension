@@ -1,6 +1,6 @@
 {
   "name": "chat-gpt-jupyter-extension",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "background.js",
   "keywords": [],
   "author": "jflam",
