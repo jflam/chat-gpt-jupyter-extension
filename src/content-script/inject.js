@@ -2,13 +2,6 @@
 // and injecting a script element onto the page so that I can access the
 // existing Jupyter page code.
 
-// TODO: Empirically determine the limit of CHAT GPT input token length for
-// the question. But for now let's just use a 6000 character limit.
-
-// TODO: move this file from the background to the content-script dir
-
-const CHAR_LIMIT = 6000;
-
 (function() {
 
 	// Strip blank lines and markdown from the first line of a cell that
@@ -325,11 +318,10 @@ const CHAR_LIMIT = 6000;
 		}
 	});
 
-	// TODO: figure out what real values to use for these
 	var action = {
-		icon: 'fa-comment', 
+		icon: 'fa-comments', 
 		help: 'Send to ChatGPT',
-		help_index: 'zz',
+		// help_index: 'zz',
 		handler: sendToChatGPT
 	};
 	var prefix = 'auto';
@@ -339,6 +331,7 @@ const CHAR_LIMIT = 6000;
 	// TODO: I don't really care about whether someone has overridden the shortcut
 	// in another extension. Feel free to fix this!
 	Jupyter.notebook.keyboard_manager.edit_shortcuts.add_shortcut('shift-enter', full_action_name);
+	Jupyter.toolbar.add_buttons_group([full_action_name]);
 
 	// Log that we successfully initialized the extension
 	console.log('Im in yr page, injecting scripts');
