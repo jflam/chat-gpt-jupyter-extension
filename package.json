@@ -1,17 +1,14 @@
 {
-  "name": "chat-gpt-google-extension",
-  "version": "1.0.0",
+  "name": "chat-gpt-jupyter-extension",
+  "version": "0.0.3",
   "main": "background.js",
   "keywords": [],
-  "author": "wong2",
-  "license": "ISC",
+  "author": "jflam",
+  "license": "MIT",
   "dependencies": {
     "esbuild": "^0.15.17",
     "eventsource-parser": "^0.0.5",
     "expiry-map": "^2.0.0",
     "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "webextension-polyfill": "^0.10.0"
   }
 }

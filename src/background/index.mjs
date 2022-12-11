@@ -1,6 +1,5 @@
 import ExpiryMap from "expiry-map";
 import { v4 as uuidv4 } from "uuid";
-import Browser from "webextension-polyfill";
 import { fetchSSE } from "./fetch-sse.mjs";
 
 const KEY_ACCESS_TOKEN = "accessToken";
@@ -61,7 +60,7 @@ async function getAnswer(question, callback) {
   });
 }
 
-Browser.runtime.onConnect.addListener((port) => {
+chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg) => {
     console.log("received msg", msg);
     try {
