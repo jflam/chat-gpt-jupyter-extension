@@ -6,7 +6,7 @@ the mundane task of writing things down for you*. When I saw ChatGPT last
 week, I realized that there was no better home for ChatGPT than inside my
 Jupyter notebooks.
 
-TODO: add an animated gif to the repo.
+![Screenshot of ChatGPT Jupyter](./screenshot.png)
 
 # Installation
 
