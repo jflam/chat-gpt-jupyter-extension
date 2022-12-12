@@ -10,7 +10,7 @@
 		let text = cell.get_text();
 		let thread = "";
 		const extractThreadId = /^\s*\#\#\#\#\#\s*chat:(.*)$/;
-		if (cell.cell_type == 'markdown') {
+		if (cell.cell_type === 'markdown') {
 			let lines = text.split("\n");
 			let strippedLines = [];
 			for (const line of lines) {
@@ -75,7 +75,7 @@
 		const [key, count] = sorted.find(([key, count]) => count === sorted[0][1]);
 		// Return the key with the highest count if count > 0
 		if (count === 0) {
-			return "unknown";
+			return "";
 		}
 		return key;
 	}
@@ -168,7 +168,7 @@
 	// code" responses and this is needed to handle this case.
 	const extractCodeBlocks = function(language, response) {
 		// Do nothing if language is unknown
-		if (language === "unknown") {
+		if (language === "") {
 			return [response, []];
 		}
 
@@ -180,7 +180,7 @@
 
 		// iterate over the lines and look for markdown code blocks
 		for (const line of lines) {
-			if (line != "") {
+			if (line !== "") {
 				if (line.startsWith("```")) {
 					inCodeBlock = !inCodeBlock;
 					if (inCodeBlock) {
@@ -204,7 +204,7 @@
 			}
 		}
 
-		if (codeBlocks.length == 0 && language != "unknown") {
+		if (codeBlocks.length === 0 && language !== "") {
 			const code = annotatedResponse.join("\n");
 			currentBlock.push(`\`\`\`${language}`)
 			currentBlock.push(code);
@@ -249,7 +249,7 @@
 	// which acts as a broker for messages coming from the background script
 	// and ultimately ChatGPT.
 	window.addEventListener("message", function(event) {
-		if (event.data.type && (event.data.type == "BEGIN_CONTENT_SCRIPT")) {
+		if (event.data.type && (event.data.type === "BEGIN_CONTENT_SCRIPT")) {
 
 			// Create a new markdown cell below the query to store the
 			// result that is streamed back from ChatGPT.
@@ -265,7 +265,7 @@
 			currentStreamingCell = Jupyter.notebook.get_selected_cell();
 			currentStreamingCell.set_text(waiting_msg);
 
-		} else if (event.data.type && (event.data.type == "STREAM_CONTENT_SCRIPT")) {
+		} else if (event.data.type && (event.data.type === "STREAM_CONTENT_SCRIPT")) {
 
 			// This gets called when there is new content from ChatGPT. 
 			// All the previous content is replaced with the new content.
@@ -278,7 +278,7 @@
 			var msg = `##### response: ${seconds} seconds elapsed\n\n${response}`;
 			currentStreamingCell.set_text(msg);
 
-		} else if (event.data.type && (event.data.type == "END_CONTENT_SCRIPT")) {
+		} else if (event.data.type && (event.data.type === "END_CONTENT_SCRIPT")) {
 			// The callback message has detected programming language 
 			let language = event.data.language;
 			let thread = event.data.thread;

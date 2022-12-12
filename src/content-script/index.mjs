@@ -5,7 +5,7 @@
 
 // Listen for post messages coming from the injected script
 window.addEventListener("message", function(event) {
-  if (event.data.type && (event.data.type == "QUERY_CHATGPT")) {
+  if (event.data.type && (event.data.type === "QUERY_CHATGPT")) {
     let query = event.data.query;
     let language = event.data.language;
     let thread = event.data.thread;
