@@ -1,10 +1,26 @@
 # ChatGPT for Jupyter
 
-A browser extension that brings ChatGPT *into* your Jupyter notebooks. The way
-I always describe Jupyter to my friends is that *it's a tool that handles the
-mundane task of writing things down for you*. When I saw ChatGPT last week, I
-realized that there was no better home for ChatGPT than inside my Jupyter
-notebooks.
+This is a browser extension that brings ChatGPT **into** your Jupyter
+notebooks. The way I always describe Jupyter to my friends is that *it's a
+tool that handles the mundane task of writing things down for you*. When I saw
+ChatGPT, I thought that there was no better home for ChatGPT than inside my
+Jupyter notebooks.
+
+This extension will reuse an existing login session that you must first
+establish with [OpenAI's ChatGPT service](https://chat.openai.com/). If you
+aren't signed in already, or your session timed out, it will prompt you to
+sign in. 
+
+The extension will run only against local Jupyter notebooks. If you want it
+to work with Jupyter notebooks from a different URL, you'll need to 
+edit the `manifest.json` file. It works by injecting script from the 
+extension into the Jupyter notebook web page and asking the extension to
+use the bearer token obtained by logging into the Open AI service to 
+communicate with the service; the browser extension effectively acts as a 
+privileged proxy. 
+
+This is the only reliable way that I've found to do this as OpenAI hasn't
+released an official API for the ChatGPT service. 
 
 # Sample session
 
@@ -21,9 +37,9 @@ ChatGPT.
 
 ![Screenshot of ChatGPT Jupyter](./response.gif)
 
-Once ChatGPT has finished sending the response, ChatGPT Jupyter will extract 
-format the code and extract the code into a separate Jupyter code cell, ready
-for you to execute.
+Once ChatGPT has finished sending the response, ChatGPT Jupyter will format
+the code and extract the code into a separate Jupyter code cell, ready for you
+to execute.
 
 ![Screenshot of ChatGPT Jupyter](./screenshot1.png)
 
@@ -31,11 +47,11 @@ After executing the code, you'll get this result:
 
 ![Screenshot of ChatGPT Jupyter](./screenshot2.png)
 
-Sometimes ChatGPT doesn't quite get it right. I wanted the first 10 prime 
-numbers, but the Sieve of Eratosthenes algorithmn wasn't really designed 
-for this: it wants to compute all the prime numbers up to a limit. Instead
-let's have it modify the program to count the number of prime numbers that
-are less than 100.
+Sometimes ChatGPT doesn't quite get it right. I wanted the first 10 prime
+numbers, but the Sieve of Eratosthenes algorithm wasn't really designed for
+this: it wants to compute all the prime numbers up to a limit. Instead let's
+have it modify the program to count the number of prime numbers that are less
+than 100.
 
 ![Screenshot of ChatGPT Jupyter](./screenshot3.png)
 
@@ -50,6 +66,16 @@ Let's run it to make sure.
 
 ![Screenshot of ChatGPT Jupyter](./screenshot5.png)
 
+# What did we see?
+
+Jupyter does the mundane task of writing things down for you in a local
+notebook file. The extension makes it easy to ask ChatGPT to write code for
+you and quickly try out that code interactively within the same notebook.
+
+We were writing Python code in the chat session, but you can do this for any
+language that has as Jupyter kernel available for it. For example, if you like
+C# or F#, you can use the [.NET Interactive
+kernel](https://github.com/dotnet/interactive) instead.
 # Installation
 
 ## Local Install for Chrome/Edge
