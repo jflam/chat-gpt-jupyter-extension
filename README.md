@@ -163,7 +163,7 @@ experience.
 The markdown cell's metadata is tagged as follows:
 
 ```javascript
-cell.metadata["chatgpt_cell"] = "query";
+cell.metadata.chatgpt_cell="query";
 ```
 
 ## Detecting the programming language
@@ -193,7 +193,7 @@ The result of this analysis is saved in the cell metadata for that query cell
 for future use. This is the Javascript code that saves these values:
 
 ```javascript
-cell.metadata["chatgpt_language"]="<programming language>";
+cell.metadata.chatgpt_language="<programming language>";
 ```
 
 ## ChatGPT threads
@@ -205,7 +205,7 @@ identified by a *thread name*:
 When the query is processed, the `thread name` is added to the cell metadata:
 
 ```javascript
-cell.metadata["chatgpt_thread"]="<thread name>";
+cell.metadata.chatgpt_thread="<thread name>";
 ```
 
 The *thread name* propagates to all result cells from that query. If *thread
@@ -263,9 +263,9 @@ The response is streamed into a markdown cell which is created when the query
 is sent to ChatGPT. That cell's metadata is tagged:
 
 ```javascript
-cell.metadata["chatgpt_cell"]="raw_response";
-cell.metadata["chatgpt_thread"]="<thread name>"; // or ""
-cell.metadata["chatgpt_language"]="<programming language>";
+cell.metadata.chatgpt_cell="raw_response";
+cell.metadata.chatgpt_thread="<thread name>"; // or ""
+cell.metadata.chatgpt_language="<programming language>";
 ```
 
 The incremental nature of how the response is streamed back from the ChatGPT
@@ -294,9 +294,9 @@ notebook code cells for each code block in the raw response. Those code cells'
 cell metadata is tagged:
 
 ```javascript
-cell.metadata["chatgpt_cell"]="code";
-cell.metadata["chatgpt_thread"]="<thread name>";
-cell.metadata["chatgpt_language"]="<programming language>";
+cell.metadata.chatgpt_cell="code";
+cell.metadata.chatgpt_thread="<thread name>";
+cell.metadata.chatgpt_language="<programming language>";
 ```
 
 Users are free to execute or delete as oftentimes necessary because ChatGPT
