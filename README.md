@@ -307,7 +307,12 @@ If a cell is modified, the **modified code** is sent back to ChatGPT in
 subsequent queries.
 ## Credit
 
-This project is inspired by and forked from [Wang
-Dàpéng/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension)
+This project is inspired by and originally forked from [Wang
+Dàpéng/chat-gpt-google-extension](https://github.com/wong2/chat-gpt-google-extension).
+I removed the fork (by talking to a GitHub chatbot no less!) because it
+was distracting; this project really doesn't have much in common with the
+Google extension outside of the mechanics of calling ChatGPT which is pretty
+stable.
+
 This project is inspired by
 [ZohaibAhmed/ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google)
