@@ -333,8 +333,11 @@
 			currentStreamingCell.set_text(summary + annotatedResponse);
 			currentStreamingCell.render();
 
+			const index = Jupyter.notebook.find_cell_index(currentStreamingCell);
+			Jupyter.notebook.select(index);
+
 			// Now inject the parsed code blocks into the notebook after
-			// the response markdown cell.
+			// currentStreamingCell
 			for (var i = 0; i < codeBlocks.length; i++) {
 				Jupyter.notebook.insert_cell_below();
 				Jupyter.notebook.select_next();
