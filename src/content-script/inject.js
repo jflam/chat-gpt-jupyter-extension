@@ -154,6 +154,35 @@
 			cell.execute();
 			Jupyter.notebook.select_next();
 		}
+
+		// Don't run default action
+		return false;
+	}
+
+	// Insert above and below
+	const insertChatCell = function(above) {
+		if (above) {
+			Jupyter.notebook.insert_cell_above();
+			Jupyter.notebook.select_prev();
+		} else {
+			Jupyter.notebook.insert_cell_below();
+			Jupyter.notebook.select_next();
+		}
+		Jupyter.notebook.cells_to_markdown();
+		Jupyter.notebook.get_selected_cell().set_text("##### chat\n");
+		Jupyter.notebook.get_selected_cell().focus_editor();
+	}
+
+	// Jupyter custom action to insert a new ChatGPT cell above the current
+	const newChatCellAbove = function() {
+		insertChatCell(true);
+		return false;
+	}
+
+	// Jupyter custom action to insert a new ChatGPT cell below the current
+	const newChatCellBelow = function() {
+		insertChatCell(false);
+		return false;
 	}
 
 	// This function takes a response from ChatGPT which will contain markdown
@@ -321,20 +350,53 @@
 		}
 	});
 
-	var action = {
+	// Register commands with Jupyter. There will be two commands:
+	// 1. sendToChatGPT: this, when invoked in a Markdown cell will send
+	//   the contents of the cell to ChatGPT only if the cell is marked
+	// 	 as a chat cell.
+	// 2. newChatCell: this, when invoked in command mode, will insert a new
+	//   markdown cell and mark it as a chat cell.
+	const sendToChatGptAction = {
 		icon: 'fa-comments', 
 		help: 'Send to ChatGPT',
-		// help_index: 'zz',
 		handler: sendToChatGPT
 	};
-	var prefix = 'auto';
-	var action_name = 'send-to-chatgpt';
-	var full_action_name = Jupyter.actions.register(action, action_name, prefix); 
+	const sendToChatGptActionName = Jupyter.actions.register(
+		sendToChatGptAction,
+		'send-to-chatgpt',
+		'auto');
 
-	// TODO: I don't really care about whether someone has overridden the shortcut
-	// in another extension. Feel free to fix this!
-	Jupyter.notebook.keyboard_manager.edit_shortcuts.add_shortcut('shift-enter', full_action_name);
-	Jupyter.toolbar.add_buttons_group([full_action_name]);
+	const newChatCellAboveAction = {
+		icon: 'fa-level-up',
+		help: 'New ChatGPT Cell Above',
+		handler: newChatCellAbove
+	};
+	const newChatCellBelowAction = {
+		icon: 'fa-level-down',
+		help: 'New ChatGPT Cell Below',
+		handler: newChatCellBelow
+	};
+	const newChatCellAboveActionName = Jupyter.actions.register(
+		newChatCellAboveAction,
+		'new-chatgpt-cell-above',
+		'auto');
+	const newChatCellBelowActionName = Jupyter.actions.register(
+		newChatCellBelowAction,
+		'new-chatgpt-cell-below',
+		'auto');
+
+	const keyboardManager = Jupyter.notebook.keyboard_manager;
+	keyboardManager.edit_shortcuts.add_shortcut('shift-enter', 
+		sendToChatGptActionName);
+	keyboardManager.command_shortcuts.add_shortcut('shift-c', 
+		newChatCellAboveActionName);
+	keyboardManager.command_shortcuts.add_shortcut('c', 
+		newChatCellBelowActionName);
+
+	Jupyter.toolbar.add_buttons_group([
+		sendToChatGptActionName, 
+		newChatCellAboveActionName, 
+		newChatCellBelowActionName]);
 
 	// Log that we successfully initialized the extension
 	console.log('Im in yr page, injecting scripts');
