@@ -29,23 +29,23 @@ You create a markdown cell and enter your prompt. To distinguish a ChatGPT
 prompt cell from a regular markdown cell, you must have `##### chat` as the
 first line in your markdown.
 
-![Screenshot of ChatGPT Jupyter](./screenshot0.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot0.png)
 
 Ordinarily in Jupyter, you press SHIFT+ENTER to render the markdown cell. The
 ChatGPT Jupyter extension overloads this keystroke to send your prompt to
 ChatGPT.
 
-![Screenshot of ChatGPT Jupyter](./response.gif)
+![Screenshot of ChatGPT Jupyter](./docs/response.gif)
 
 Once ChatGPT has finished sending the response, ChatGPT Jupyter will format
 the code and extract the code into a separate Jupyter code cell, ready for you
 to execute.
 
-![Screenshot of ChatGPT Jupyter](./screenshot1.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot1.png)
 
 After executing the code, you'll get this result:
 
-![Screenshot of ChatGPT Jupyter](./screenshot2.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot2.png)
 
 Sometimes ChatGPT doesn't quite get it right. I wanted the first 10 prime
 numbers, but the Sieve of Eratosthenes algorithm wasn't really designed for
@@ -53,18 +53,18 @@ this: it wants to compute all the prime numbers up to a limit. Instead let's
 have it modify the program to count the number of prime numbers that are less
 than 100.
 
-![Screenshot of ChatGPT Jupyter](./screenshot3.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot3.png)
 
 This time it adds a counter to count the prime numbers as it goes. But 
 it left the first run in the code. Since ChatGPT Jupyter extracts the code
 into a cell, you can just edit the code in the cell to delete the first call
 to the `sieve()` function.
 
-![Screenshot of ChatGPT Jupyter](./screenshot4.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot4.png)
 
 Let's run it to make sure.
 
-![Screenshot of ChatGPT Jupyter](./screenshot5.png)
+![Screenshot of ChatGPT Jupyter](./docs/screenshot5.png)
 
 # What did we see?
 
