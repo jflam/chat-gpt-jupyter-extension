@@ -1,5 +1,7 @@
 # ChatGPT for Jupyter
 
+[![Binder](http://mybinder.org/badge_logo.svg)](http://mybinder.org/v2/gh/jflam/chat-gpt-jupyter-extension/HEAD?filepath=index.ipynb)
+
 This is a browser extension that brings ChatGPT **into** your Jupyter
 notebooks. The way I always describe Jupyter to my friends is that *it's a
 tool that handles the mundane task of writing things down for you*. When I saw
