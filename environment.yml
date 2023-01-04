@@ -17,4 +17,3 @@ dependencies:
   - tzdata=2022g=h191b570_0
   - wheel=0.38.4=pyhd8ed1ab_0
   - xz=5.2.6=h57fd34a_0
-prefix: /opt/homebrew/Caskroom/miniforge/base/envs/chatgpt
