@@ -3,6 +3,7 @@
 // existing Jupyter page code.
 
 (function() {
+	console.log("Starting inject.js script");
 
 	// Strip blank lines and markdown from the first line of a cell that
 	// identifies the cell as either a query or response cell.
