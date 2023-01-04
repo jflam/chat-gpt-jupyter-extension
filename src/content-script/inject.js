@@ -54,7 +54,7 @@
 		const regex = new RegExp(`\\b(${Object.keys(keywordToProgrammingLanguage).join("|")})\\b`, "g");
 		// Use the regex to find all matches in the string. The "match" method
 		// will return an array of matches, or null if there are no matches.
-		const matches = text.match(regex);
+		const matches = text.lower().match(regex);
 		// Initialize the result object with counts of 0 for each identifier.
 		const result = Object.values(keywordToProgrammingLanguage).reduce((acc, id) => {
 			acc[id] = 0;
