@@ -48,11 +48,13 @@ window.addEventListener("message", function(event) {
   }
 });
 
-// Magical inject a script element into the DOM page code from 
-// https://stackoverflow.com/questions/9515704/access-variables-and-functions-defined-in-page-context-using-a-content-script
+// All page scripts should be loaded now, so now we inject the script
+// into the page
 var s = document.createElement('script');
 s.src = chrome.runtime.getURL("content-script/inject.js");
-s.onload = function() {
+console.log("Injecting script element into page");
+s.onload = function () {
   this.remove();
+  console.log("Removing script element from page");
 };
 (document.head || document.documentElement).appendChild(s);
