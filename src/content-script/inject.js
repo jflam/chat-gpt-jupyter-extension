@@ -4,8 +4,6 @@
 
 (function () {
 
-	// Only register commands if there is a Jupyter object
-	// There is a race condition here because Jupyter isn't loaded yet.
 	// Strip blank lines and markdown from the first line of a cell that
 	// identifies the cell as either a query or response cell.
 	const stripChatMarkdown = function (cell) {
