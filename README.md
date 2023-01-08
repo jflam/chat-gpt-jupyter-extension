@@ -13,13 +13,17 @@ establish with [OpenAI's ChatGPT service](https://chat.openai.com/). If you
 aren't signed in already, or your session timed out, it will prompt you to
 sign in. 
 
-The extension will run only against local Jupyter notebooks. If you want it
-to work with Jupyter notebooks from a different URL, you'll need to 
-edit the `manifest.json` file. It works by injecting script from the 
-extension into the Jupyter notebook web page and asking the extension to
-use the bearer token obtained by logging into the Open AI service to 
-communicate with the service; the browser extension effectively acts as a 
-privileged proxy. 
+It only works with the classic Jupyter notebook user interface. Help is
+welcome to make it work with JupyterLab. It works with both local Jupyter
+notebooks that you access via http://localhost or notebooks hosted on the
+public MyBinder service at https://mybinder.org. 
+
+If you want it to work with Jupyter notebooks from a different URL, you'll
+need to edit the `manifest.json` file. It works by injecting script from the
+extension into the Jupyter notebook web page and asking the extension to use
+the bearer token obtained by logging into the Open AI service to communicate
+with the service; the browser extension effectively acts as a privileged
+proxy. 
 
 This is the only reliable way that I've found to do this as OpenAI hasn't
 released an official API for the ChatGPT service. 
